@@ -1,4 +1,5 @@
 service: movie-reviews-api
+useDotenv: true
 
 # Create an optimized package for our functions
 package:
@@ -14,25 +15,31 @@ provider:
   runtime: nodejs12.x
   stage: prod
   region: us-east-2
+  lambdaHashingVersion: 20201221
 
   # These environment variables are made available to our functions
   # under process.env.
   environment:
     tableName: movie-reviews
+    stripeSecretKey: ${env:STRIPE_SECRET_KEY}
 
   # 'iamRoleStatements' defines the permission policy for the Lambda function.
   # In this case Lambda functions are granted with permissions to access DynamoDB.
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:Scan
-        - dynamodb:Query
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-        - dynamodb:DescribeTable
-      Resource: "arn:aws:dynamodb:us-east-2:*:*"
+
+  # SAM UPDATE: Based on AWS release change, modified this to match future case
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Scan
+            - dynamodb:Query
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+            - dynamodb:DescribeTable
+          Resource: "arn:aws:dynamodb:us-east-2:*:*"
 
 functions:
   # Defines an HTTP API endpoint that calls the main function in create.js
@@ -84,4 +91,14 @@ functions:
       - http:
           path: reviews/{id}
           method: delete
+          authorizer: aws_iam
+  billing:
+    # Defines an HTTP API endpoint that calls the main function in billing.js
+    # - path: url path is /billing
+    # - method: POST request
+    handler: billing.main
+    events:
+      - http:
+          path: billing
+          method: post
           authorizer: aws_iam

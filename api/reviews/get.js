@@ -2,8 +2,8 @@ import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 
 export const main = handler(async (event, context) => {
-  const PK = event.requestContext.identity.cognitoIdentityId;
-  const SK = event.pathParameters.id;
+  const PK = `USER#${event.requestContext.identity.cognitoIdentityId}`;
+  const SK = `REV#${event.pathParameters.id}`;
 
   const params = {
     TableName: process.env.tableName,

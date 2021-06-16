@@ -6,6 +6,8 @@ export const main = handler(async (event, context) => {
   const data = JSON.parse(event.body);
 
   const reviewId = uuid.v1();
+  const now = Date.now();
+  const { description, contentType, contentTitle, rating} = data;
 
   const params = {
     TableName: process.env.tableName, // change to new table
@@ -13,11 +15,15 @@ export const main = handler(async (event, context) => {
       // The attributes of the item to be created
       PK: `USER#${event.requestContext.identity.cognitoIdentityId}`,
       SK: `REV#${reviewId}`,
-      // userId: event.requestContext.identity.cognitoIdentityId, // The id of the author NOTE CHANGE
+      userId: event.requestContext.identity.cognitoIdentityId,
       reviewId, // A unique uuid
-      content: data.content, // Parsed from request body
-      movieId: data.movieId, // Parsed from request body
-      createdAt: Date.now(), // Current Unix timestamp
+      description, // Parsed from request body
+      contentType,
+      contentTitle,
+      rating,
+      // movieId: data.movieId, // Parsed from request body
+      createdAt: now, // Current Unix timestamp
+      updatedAt: now, // Current Unix timestamp
     },
   };
 

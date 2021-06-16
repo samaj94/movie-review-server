@@ -1,0 +1,11 @@
+{
+  "body": "{\"description\":\"It was sooo goood\",\"contentType\":\"TV Show\", \"rating\": \"9.5\"}",
+  "pathParameters": {
+    "id": "8041f550-ceb9-11eb-89f1-bfe2014b1907"
+  },
+  "requestContext": {
+    "identity": {
+      "cognitoIdentityId": "USER-SUB-1234"
+    }
+  }
+}

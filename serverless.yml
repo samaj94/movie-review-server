@@ -75,17 +75,17 @@ functions:
           method: get
           cors: true
           authorizer: aws_iam
-  # update:
-  #   # Defines an HTTP API endpoint that calls the main function in update.js
-  #   # - path: url path is /reviews/{id}
-  #   # - method: PUT request
-  #   handler: update.main
-  #   events:
-  #     - http:
-  #         path: reviews/{id}
-  #         method: put
-  #         cors: true
-  #         authorizer: aws_iam
+  update:
+    # Defines an HTTP API endpoint that calls the main function in update.js
+    # - path: url path is /reviews/{id}
+    # - method: PUT request
+    handler: api/reviews/update.main
+    events:
+      - http:
+          path: reviews/{id}
+          method: put
+          cors: true
+          authorizer: aws_iam
   delete:
     # Defines an HTTP API endpoint that calls the main function in delete.js
     # - path: url path is /reviews/{id}

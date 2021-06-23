@@ -8,7 +8,7 @@ export const main = handler(async (event) => {
     const response = await got('https://movie-database-imdb-alternative.p.rapidapi.com/', {
       searchParams: {Search: "Genre", s: title, page: '1', r: 'json'},
       headers: {
-        'x-rapidapi-key': '9d6a42fcc0msh503edc104ab11e1p130513jsn0996dc0fa553',
+        'x-rapidapi-key': '<NOT_HERE>',
         'x-rapidapi-host': 'movie-database-imdb-alternative.p.rapidapi.com'
       }
     });

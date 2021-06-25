@@ -3,7 +3,7 @@ import got from 'got';
 
 export const main = handler(async (event) => {
   const { title } = JSON.parse(event.body);
-  console.log('SECRET', process.env.STRIPE_SECRET_KEY);
+
   try {
     const response = await got('https://movie-database-imdb-alternative.p.rapidapi.com/', {
       searchParams: {s: title, page: '1', r: 'json'},

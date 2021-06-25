@@ -1,14 +1,16 @@
 import * as uuid from "uuid";
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
+import findOrCreateMovie from '../content/find_or_create';
 
 export const main = handler(async (event, context) => {
   const data = JSON.parse(event.body);
 
-  const reviewId = uuid.v1();
+  const reviewId = uuid.v4();
   const now = Date.now();
-  const { description, contentType, contentTitle, rating} = data;
-
+  const { description, rating} = data;
+  const content = await findOrCreateMovie(data);
+  console.log('CONTENT', content);
   const params = {
     TableName: process.env.tableName, // change to new table
     Item: {
@@ -18,10 +20,9 @@ export const main = handler(async (event, context) => {
       userId: event.requestContext.identity.cognitoIdentityId,
       reviewId, // A unique uuid
       description, // Parsed from request body
-      contentType,
-      contentTitle,
+      contentId: content.contentId,
+      contentTitle: content.contentTitle,
       rating,
-      // movieId: data.movieId, // Parsed from request body
       createdAt: now, // Current Unix timestamp
       updatedAt: now, // Current Unix timestamp
     },

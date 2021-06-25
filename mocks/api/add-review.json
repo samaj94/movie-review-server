@@ -1,5 +1,5 @@
 {
-  "body": "{\"description\":\"So good!\",\"contentType\":\"Movie\", \"contentTitle\":\"Hello Dolly\", \"rating\": \"9.5\"}",
+  "body": "{\"description\":\"So good!\",\"contentType\":\"Movie\", \"contentTitle\":\"Goodbye Dolly\", \"rating\": \"8.5\", \"imdbId\": \"ttslgj1234\", \"poster\": \"www.fakeurl.com/sdlfhsdf\"}",
   "requestContext": { 
     "identity": {
       "cognitoIdentityId": "USER-SUB-1234"

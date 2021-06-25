@@ -97,6 +97,14 @@ functions:
           method: delete
           cors: true
           authorizer: aws_iam
+  findExternal:
+    handler: api/front-end/find-movies.main
+    events:
+      - http:
+          path: external/find
+          method: get
+          cors: true
+          authorizer: aws_iam
   # billing:
   #   # Defines an HTTP API endpoint that calls the main function in billing.js
   #   # - path: url path is /billing

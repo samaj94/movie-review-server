@@ -9,8 +9,9 @@ export const main = handler(async (event, context) => {
   const reviewId = uuid.v4();
   const now = Date.now();
   const { description, rating} = data;
+
   const content = await findOrCreateMovie(data);
-  console.log('CONTENT', content);
+
   const params = {
     TableName: process.env.tableName, // change to new table
     Item: {

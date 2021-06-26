@@ -1,5 +1,6 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
+import findContent from "../content/find";
 
 export const main = handler(async (event, context) => {
   const PK = `USER#${event.requestContext.identity.cognitoIdentityId}`;
@@ -15,10 +16,15 @@ export const main = handler(async (event, context) => {
   };
 
   const result = await dynamoDb.get(params);
+  const contentInfo = await findContent(result.Item.contentId);
+
   if (!result.Item) {
     throw new Error("Item not found.");
   }
 
   // Return the retrieved item
-  return result.Item;
+  return {
+    review: result.Item,
+    content: contentInfo.Item
+  };
 });

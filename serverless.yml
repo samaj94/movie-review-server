@@ -101,7 +101,7 @@ functions:
     handler: api/front-end/find-movies.main
     events:
       - http:
-          path: external/find
+          path: external/find/{title}
           method: get
           cors: true
           authorizer: aws_iam
